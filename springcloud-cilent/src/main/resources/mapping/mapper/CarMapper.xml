@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.CarMapper">
+    <select id="queryCar" resultType="com.jk.model.Car" parameterType="com.jk.model.Car">
+        select * from t_car
+        <where>
+            <if test="name != null and name != ''">
+                and name like '%${name}%'
+            </if>
+        </where>
+    </select>
+    <insert id="addCar" parameterType="com.jk.model.Car">
+        insert into t_car(name,price,createDate) values (#{name},#{price},#{createDate})
+    </insert>
+    <delete id="deleteCarById" parameterType="string">
+        delete from t_car where id in (${value})
+    </delete>
+    <select id="queryCarById" resultType="com.jk.model.Car" parameterType="int">
+        select * from t_car where id =#{id}
+    </select>
+    <update id="updateCar" parameterType="com.jk.model.Car">
+        update t_car set name =#{name},price=#{price},createdate=#{createDate} where id =#{id}
+    </update>
+</mapper>
